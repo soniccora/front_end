@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Github, Twitter, Linkedin, Send } from "lucide-react";
+import { Facebook, Youtube, Twitter, Linkedin, Send } from "lucide-react";
 
 type FooterLink = { label: string; to: string };
 
@@ -140,15 +140,46 @@ export function Footer() {
             © 2026 Soniccora Technologies Inc. All rights reserved.
           </p>
           <div className="flex items-center gap-3">
-            {[Github, Twitter, Linkedin].map((Icon, i) => (
-              <a
-                key={i}
-                href="#"
-                className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-all hover:border-primary/50 hover:text-primary"
-              >
-                <Icon size={16} />
-              </a>
-            ))}
+            <a
+              href="https://www.facebook.com//soniccora/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-all hover:border-primary/50 hover:text-primary"
+            >
+              <Facebook size={16} />
+            </a>
+            <a
+              href="https://www.youtube.com/@Soniccora"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-all hover:border-primary/50 hover:text-primary"
+            >
+              <Youtube size={16} />
+            </a>
+            <a
+              href="http://pinterest.com/Soniccora_/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-all hover:border-primary/50 hover:text-primary"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.237 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.181-.78 1.172-4.97 1.172-4.97s-.299-.6-.299-1.486c0-1.39.806-2.428 1.81-2.428.852 0 1.264.64 1.264 1.408 0 .858-.545 2.14-.828 3.33-.236.995.5 1.807 1.48 1.807 1.778 0 3.144-1.874 3.144-4.58 0-2.393-1.72-4.068-4.177-4.068-2.845 0-4.515 2.135-4.515 4.34 0 .859.331 1.781.745 2.281.082.099.094.188.069.288-.076.312-.246 1.002-.279 1.139-.042.174-.145.213-.327.129-1.222-.569-1.986-2.355-1.986-3.791 0-3.08 2.239-5.908 6.452-5.908 3.391 0 6.027 2.417 6.027 5.642 0 3.37-2.124 6.084-5.074 6.084-1.026 0-1.99-.533-2.318-1.162l-.631 2.404c-.228.873-.846 1.964-1.26 2.63 1.028.318 2.115.488 3.235.488 5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+            </a>
+            <a
+              href="https://x.com/Soniccora_"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-all hover:border-primary/50 hover:text-primary"
+            >
+              <Twitter size={16} />
+            </a>
+            <a
+              href="https://www.linkedin.com/company/soniccora"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-all hover:border-primary/50 hover:text-primary"
+            >
+              <Linkedin size={16} />
+            </a>
           </div>
         </div>
       </div>

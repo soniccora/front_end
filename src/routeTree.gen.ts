@@ -27,6 +27,7 @@ import { Route as CareersRouteImport } from './routes/careers'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ApiReferenceRouteImport } from './routes/api-reference'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as LoginFirebaseRouteImport } from './routes/login-firebase'
 import { Route as IndexRouteImport } from './routes/index'
 
 const TermsRoute = TermsRouteImport.update({
@@ -119,6 +120,11 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginFirebaseRoute = LoginFirebaseRouteImport.update({
+  id: '/login-firebase',
+  path: '/login-firebase',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -128,6 +134,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/login-firebase': typeof LoginFirebaseRoute
   '/api-reference': typeof ApiReferenceRoute
   '/blog': typeof BlogRoute
   '/careers': typeof CareersRoute
@@ -149,6 +156,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/login-firebase': typeof LoginFirebaseRoute
   '/api-reference': typeof ApiReferenceRoute
   '/blog': typeof BlogRoute
   '/careers': typeof CareersRoute
@@ -171,6 +179,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/login-firebase': typeof LoginFirebaseRoute
   '/api-reference': typeof ApiReferenceRoute
   '/blog': typeof BlogRoute
   '/careers': typeof CareersRoute
@@ -194,6 +203,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/login-firebase'
     | '/api-reference'
     | '/blog'
     | '/careers'
@@ -215,6 +225,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/login-firebase'
     | '/api-reference'
     | '/blog'
     | '/careers'
@@ -236,6 +247,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/login-firebase'
     | '/api-reference'
     | '/blog'
     | '/careers'
@@ -258,6 +270,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  LoginFirebaseRoute: typeof LoginFirebaseRoute
   ApiReferenceRoute: typeof ApiReferenceRoute
   BlogRoute: typeof BlogRoute
   CareersRoute: typeof CareersRoute
@@ -405,6 +418,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login-firebase': {
+      id: '/login-firebase'
+      path: '/login-firebase'
+      fullPath: '/login-firebase'
+      preLoaderRoute: typeof LoginFirebaseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -418,6 +438,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  LoginFirebaseRoute: LoginFirebaseRoute,
   ApiReferenceRoute: ApiReferenceRoute,
   BlogRoute: BlogRoute,
   CareersRoute: CareersRoute,
@@ -436,6 +457,7 @@ const rootRouteChildren: RootRouteChildren = {
   TechnologyRoute: TechnologyRoute,
   TermsRoute: TermsRoute,
 }
+
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
