@@ -163,7 +163,7 @@ export function Contact() {
                         required
                         type="text"
                         className="w-full bg-white/5 border border-white/10 p-4 rounded-2xl focus:border-primary text-foreground outline-none transition-colors placeholder:text-muted-foreground/50"
-                        placeholder="John Doe"
+                        placeholder="Your Name"
                       />
                   </div>
                   <div className="space-y-2">
@@ -174,7 +174,7 @@ export function Contact() {
                         required
                         type="email"
                         className="w-full bg-white/5 border border-white/10 p-4 rounded-2xl focus:border-primary text-foreground outline-none transition-colors placeholder:text-muted-foreground/50"
-                        placeholder="john@example.com"
+                        placeholder="your@email.com"
                       />
                   </div>
                 </div>
