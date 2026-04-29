@@ -59,12 +59,7 @@ export function Navbar() {
 
         {/* CTA */}
         <div className="hidden flex-1 items-center justify-end gap-6 md:flex">
-          <Link
-            to="/login-firebase"
-            className="text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Sign In
-          </Link>
+
           <Link
             to="/product"
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-all hover:shadow-[0_0_24px_rgba(0,229,255,0.55)]"

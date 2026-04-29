@@ -1,10 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Layout, BarChart, Settings, Users } from "lucide-react";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
-import { useState, useEffect } from "react";
-import { auth, googleProvider } from "@/lib/firebase";
-import { signInWithPopup, onAuthStateChanged, User, signOut, signInWithRedirect, getRedirectResult } from "firebase/auth";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -12,7 +9,7 @@ export const Route = createFileRoute("/dashboard")({
       { title: "Dashboard — Soniccora" },
       {
         name: "description",
-        content: "The Soniccora command center. Sign in to generate, monitor, and deploy audio.",
+        content: "The Soniccora command center. Monitor and deploy your audio systems.",
       },
       { name: "robots", content: "noindex" },
     ],
@@ -21,125 +18,70 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 function DashboardPage() {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    // Handle the result of a redirect login
-    const checkRedirect = async () => {
-      try {
-        const result = await getRedirectResult(auth);
-        if (result?.user) {
-          setUser(result.user);
-        }
-      } catch (err: any) {
-        console.error("Redirect Result Error:", err);
-        setError(err.message);
-      }
-    };
-    checkRedirect();
-
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      setLoading(false);
-    }, (err) => {
-      setError(err.message);
-      setLoading(false);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  const handleLoginPopup = async () => {
-    try {
-      setError(null);
-      await signInWithPopup(auth, googleProvider);
-    } catch (err: any) {
-      setError(err.message);
-      console.error("Popup Error:", err);
-    }
-  };
-
-  const handleLoginRedirect = async () => {
-    try {
-      setError(null);
-      await signInWithRedirect(auth, googleProvider);
-    } catch (err: any) {
-      setError(err.message);
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await signOut(auth);
-    } catch (err: any) {
-      setError(err.message);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
-      <main className="mx-auto max-w-3xl px-6 pb-32 pt-40 text-center">
-        {!user ? (
-          <>
-            <h1 className="mt-6 font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl">
-              SIGN IN TO <span className="text-primary text-glow-cyan">DASHBOARD.</span>
-            </h1>
-            <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
-              Test your Firebase connection here. If the popup doesn't appear, try the redirect method.
-            </p>
+      <main className="mx-auto max-w-7xl px-6 pb-32 pt-40">
+        <div className="mb-12">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/5 px-4 py-1.5 font-mono text-[11px] tracking-[0.2em] text-primary">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
+            SYSTEM OPERATIONAL
+          </span>
+          <h1 className="mt-6 font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl">
+            COMMAND <span className="text-primary text-glow-cyan">CENTER.</span>
+          </h1>
+          <p className="mt-6 max-w-xl text-lg text-muted-foreground">
+            Manage your programmable audio engine, monitor system health, and deploy scalable audio infrastructures.
+          </p>
+        </div>
 
-            {error && (
-              <div className="mt-6 p-4 rounded-md bg-destructive/10 border border-destructive/20 text-destructive text-sm">
-                {error}
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {[
+            { icon: Layout, label: "Active Workflows", value: "12", trend: "+2" },
+            { icon: BarChart, label: "System Load", value: "24%", trend: "-5%" },
+            { icon: Users, label: "Concurrent Streams", value: "1,204", trend: "+12%" },
+            { icon: Settings, label: "API Latency", value: "42ms", trend: "Stable" },
+          ].map((stat, i) => (
+            <div key={i} className="rounded-xl border border-border bg-surface/30 p-6 backdrop-blur">
+              <div className="flex items-center justify-between">
+                <stat.icon size={20} className="text-primary" />
+                <span className="text-[10px] font-bold text-primary/80">{stat.trend}</span>
               </div>
-            )}
+              <p className="mt-4 text-xs font-medium text-muted-foreground uppercase tracking-widest">{stat.label}</p>
+              <p className="mt-1 text-2xl font-bold">{stat.value}</p>
+            </div>
+          ))}
+        </div>
 
-            <div className="mt-8 flex flex-col items-center gap-3">
-              <button
-                onClick={handleLoginPopup}
-                className="inline-flex h-12 w-full max-w-xs items-center justify-center gap-2 rounded-md bg-primary px-7 text-sm font-bold text-primary-foreground shadow-[0_0_30px_rgba(0,229,255,0.5)]"
-              >
-                Sign In with Popup
-              </button>
-              <button
-                onClick={handleLoginRedirect}
-                className="inline-flex h-12 w-full max-w-xs items-center justify-center gap-2 rounded-md border border-border-strong bg-surface/40 px-7 text-sm font-semibold backdrop-blur"
-              >
-                Sign In with Redirect
-              </button>
-            </div>
-          </>
-        ) : (
-          <>
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/5 px-4 py-1.5 font-mono text-[11px] tracking-[0.2em] text-primary">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" />
-              AUTHENTICATED · {user.displayName?.toUpperCase()}
-            </span>
-            <h1 className="mt-6 font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl">
-              FIREBASE IS <span className="text-primary text-glow-cyan">WORKING.</span>
-            </h1>
-            <p className="mx-auto mt-6 max-w-xl text-lg text-muted-foreground">
-              You have successfully connected your Firebase account. You can now access your
-              generation studio and waveform monitor.
+        <div className="mt-12 grid gap-6 md:grid-cols-2">
+          <div className="rounded-2xl border border-border bg-surface/20 p-8">
+            <h3 className="text-xl font-bold">Quick Generate</h3>
+            <p className="mt-2 text-muted-foreground text-sm">
+              Instantly trigger audio synthesis using your default parameters.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <button
-                onClick={handleLogout}
-                className="inline-flex h-12 items-center gap-2 rounded-md border border-border-strong bg-surface/40 px-7 text-sm font-semibold backdrop-blur"
-              >
-                Logout
-              </button>
-              <Link
-                to="/pricing"
-                className="inline-flex h-12 items-center gap-2 rounded-md bg-primary px-7 text-sm font-bold text-primary-foreground shadow-[0_0_30px_rgba(0,229,255,0.5)]"
-              >
-                Manage Subscription <ArrowRight size={16} />
-              </Link>
+            <div className="mt-6 h-32 rounded-lg border border-dashed border-border flex items-center justify-center">
+              <p className="text-xs text-muted-foreground">Studio Interface Loading...</p>
             </div>
-          </>
-        )}
+            <button className="mt-6 inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-bold text-primary-foreground">
+              Launch Studio
+            </button>
+          </div>
+
+          <div className="rounded-2xl border border-border bg-surface/20 p-8">
+            <h3 className="text-xl font-bold">Developer Resources</h3>
+            <p className="mt-2 text-muted-foreground text-sm">
+              Access API keys, webhooks, and SDK configuration.
+            </p>
+            <ul className="mt-6 space-y-4">
+              {["API Documentation", "SDK Integration Guide", "Webhooks Console"].map((item) => (
+                <li key={item} className="flex items-center justify-between group cursor-pointer">
+                  <span className="text-sm font-medium hover:text-primary transition-colors">{item}</span>
+                  <ArrowRight size={14} className="text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </main>
       <Footer />
     </div>
