@@ -14,11 +14,7 @@ declare module '@tanstack/react-router' {
 
 const rootElement = document.getElementById('root')!
 if (rootElement) {
-  if (rootElement.innerHTML) {
-    ReactDOM.hydrateRoot(rootElement, <RouterProvider router={router} />)
-  } else {
-    const root = ReactDOM.createRoot(rootElement)
-    root.render(<RouterProvider router={router} />)
-  }
+  const root = ReactDOM.createRoot(rootElement)
+  root.render(<RouterProvider router={router} />)
 }
 
