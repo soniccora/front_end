@@ -173,7 +173,7 @@ export function Footer() {
               <Twitter size={16} />
             </a>
             <a
-              href="https://www.linkedin.com/company/soniccora"
+              href="https://www.linkedin.com/company/soniccora-technologies-inc/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex h-9 w-9 items-center justify-center rounded-md border border-border text-muted-foreground transition-all hover:border-primary/50 hover:text-primary"
